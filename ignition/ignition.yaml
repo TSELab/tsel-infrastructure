@@ -1,0 +1,29 @@
+passwd:
+  users:
+    - name: torresar
+      password_hash: ""
+      ssh_authorized_keys:
+        - key1
+      home_dir: /home/torresar
+      no_create_home: false
+      shell: /bin/bash
+    - name: hjang
+      ssh_authorized_keys:
+        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOs5GdKO9QA4IHOA3OmY+s+sMDlkIOUwunkh9HTR0bRk hjjang501@gmail.com
+        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO+H6wAP4dW/PEh2AsmN78KdwXVkjtT0+aPp2eb7EDcT hjjang501@gmail.com
+      home_dir: /home/hjang
+      no_create_home: false
+      shell: /bin/bash
+
+storage: {}
+
+systemd: {}
+
+networkd: {}
+
+etcd: {}
+
+docker: {}
+
+update:
+  group: "stable"
