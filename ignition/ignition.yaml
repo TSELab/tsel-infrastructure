@@ -14,7 +14,28 @@ passwd:
       no_create_home: false
       shell: /bin/bash
 
-storage: {}
+storage:
+  filesystems:
+    - name: osfs
+      mount: /dev/disk/by-partuuid/e1f56d44-7614-ff4e-882c-368531deba33
+      format: btrfs
+      uuid: e1f56d44-7614-ff4e-882c-368531deba33
+    - name: vms
+      mount: /dev/disk/by-partuuid/6fa2797b-86fc-3443-bbc2-4447530a154e
+      format: btrfs
+      uuid: 6fa2797b-86fc-3443-bbc2-4447530a154e
+    - name: homes
+      mount: /dev/disk/by-partuuid/62dc6208-4c82-c748-943e-bece652f1fae
+      format: btrfs
+      uuid: 62dc6208-4c82-c748-943e-bece652f1fae
+  directories:
+    - filesystem: osfs
+      path: /
+    - filesystem: vms
+      path: /var/lib/docker
+    - name: homes
+      path: /home/
+
 
 systemd: {}
 
