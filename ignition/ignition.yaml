@@ -1,7 +1,6 @@
 passwd:
   users:
     - name: torresar
-      password_hash: ""
       ssh_authorized_keys:
         - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC85lSaYKPVa22lLYqRac36QLPmQejJGzhfnMkHG0rq+a4Kh2BUL9T87TW0UOH9vn72nWJDoQjy4lzmEPXg78H5fwUc+8/+ZcM4PB6Kud6lnU56BkDfU1iI3Us1zWn9dmHOASalfu6ZYEWehKEGkhqTQ+3e58jmK3o55kht7zcpyWEaCheKUDkenLG+mWNL8OZu/Zg9wypt/EyyfYn6HV5BIxnttGEyzqacTVwk/TCoz30x9WWe3AYl4ClJdUEQuo1xWkd2tYzM3iR4/NvK7PWHWz7Vn5UC9xLWznNrkoKqRCx7u+bBdpvUq0974yVeqlMLdNH99x9ZAbvLk1itXA1x santiago@LykOS
       home_dir: /home/torresar
