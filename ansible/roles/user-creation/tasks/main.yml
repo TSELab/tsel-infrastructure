@@ -2,6 +2,7 @@
   user:
     name: "{{ item.key }}"
     group: users
+    groups: "{{ item.value.groups | join(',') }}"
     shell: /bin/bash
   with_dict: "{{ users }}"
 

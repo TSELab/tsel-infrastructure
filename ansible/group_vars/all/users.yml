@@ -2,5 +2,5 @@
 users:
   eman:
     name: "Eman"
-    groups: []
+    groups: [docker]
     ssh_key: eman.pub
