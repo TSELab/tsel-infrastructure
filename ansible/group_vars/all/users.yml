@@ -1,0 +1,6 @@
+---
+users:
+  eman:
+    name: "Eman"
+    groups: []
+    ssh_key: eman.pub

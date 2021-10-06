@@ -1,0 +1,20 @@
+- name: Create users
+  user:
+    name: "{{ item.key }}"
+    group: users
+    shell: /bin/bash
+  with_dict: "{{ users }}"
+
+- name: Create .ssh directory
+  file: path=/home/{{ item.key }}/.ssh state=directory owner={{ item.key }} group=users mode=0700
+  with_dict: "{{ users }}"
+
+- name: Configure ssh keys
+  copy:
+    src: pubkeys/{{ item.value.ssh_key }}
+    dest: /home/{{ item.key }}/.ssh/authorized_keys
+    owner: "{{ item.key }}"
+    group: users
+    mode: '0600'
+  when: item.value.ssh_key is defined
+  with_dict: "{{ users }}"
