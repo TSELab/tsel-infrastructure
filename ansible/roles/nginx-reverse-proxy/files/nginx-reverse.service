@@ -1,0 +1,22 @@
+[Unit]
+Description=Nginx reverse proxy for custom domains
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker stop nginx-proxy
+ExecStart=/usr/bin/docker run \
+--rm \
+--name nginx-proxy \
+-p 80:80 \
+-p 443:443 \
+-v certs:/etc/nginx/certs \
+-v vhost:/etc/nginx/vhost.d \
+-v html:/usr/share/nginx/html \
+-v /var/run/docker.sock:/tmp/docker.sock:ro \
+--label com.github.nginx-proxy.acme_companion.nginx_proxy \
+nginxproxy/nginx-proxy
+
+[Install]
+WantedBy=multi-user.target

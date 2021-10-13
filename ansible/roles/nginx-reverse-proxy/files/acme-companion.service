@@ -1,0 +1,19 @@
+[Unit]
+Description=LetsEncrypt companion for nginx-proxy
+After=docker.service
+Requires=docker.service
+Requires=nginx-reverse.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker stop nginx-proxy-acme
+ExecStart=/usr/bin/docker run \
+--rm \
+--name nginx-proxy-acme \
+--volumes-from nginx-proxy \
+-v /var/run/docker.sock:/var/run/docker.sock:ro \
+-v acme:/etc/acme.sh \
+nginxproxy/acme-companion
+
+[Install]
+WantedBy=multi-user.target

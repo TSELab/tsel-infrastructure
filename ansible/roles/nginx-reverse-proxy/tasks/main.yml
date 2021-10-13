@@ -1,0 +1,27 @@
+---
+- name: Make sure docker service is running
+  systemd:
+    state: started
+    name: docker
+
+- name: Copy reverse proxy service files
+  copy:
+    src: "{{ item.service }}"
+    dest: /etc/systemd/system/{{ item.service }}
+    owner: core
+    mode: 0644
+  notify:
+    - "{{ item.handler }}"
+  with_items:
+    - { service: 'nginx-reverse.service', handler: 'Restart nginx reverse proxy' }
+    - { service: 'acme-companion.service', handler: 'Restart letsencrypt acme companion' }
+
+- name: Start nginx reverse proxy service with letsencrypt companion
+  systemd:
+    name: "{{ item }}"
+    enabled: true
+    state: started
+    daemon-reload: true
+  with_items:
+    - nginx-reverse.service
+    - acme-companion.service

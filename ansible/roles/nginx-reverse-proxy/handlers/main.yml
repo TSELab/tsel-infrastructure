@@ -1,0 +1,14 @@
+---
+- name: Restart nginx reverse proxy
+  systemd:
+    name: nginx-reverse.service
+    enabled: true
+    state: restarted
+    daemon-reload: true
+
+- name: Restart letsencrypt acme companion
+  systemd:
+    name: acme-companion.service
+    enabled: true
+    state: restarted
+    daemon-reload: true
