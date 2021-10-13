@@ -1,0 +1,25 @@
+---
+- name: Make sure required services are running
+  systemd:
+    state: started
+    name: "{{ item }}"
+  with_items:
+    - docker
+    - nginx-reverse
+    - acme-companion
+
+- name: Copy monitor service file
+  copy:
+    src: purdue-monitor.service
+    dest: /etc/systemd/system
+    owner: core
+    mode: 0644
+  notify:
+    - Restart monitor service
+
+- name: Start monitor service
+  systemd:
+    name: purdue-monitor.service
+    enabled: true
+    state: started
+    daemon-reload: true

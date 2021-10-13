@@ -1,0 +1,28 @@
+[Unit]
+Description=Public monitor interface over HTTPS
+After=docker.service
+Requires=docker.service
+Requires=acme-companion.service
+
+StartLimitIntervalSec=300
+StartLimitBurst=5
+
+[Service]
+Restart=on-failure
+RestartSec=2
+
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker stop monitor-https
+ExecStart=/usr/bin/docker run \
+--env "LETSENCRYPT_HOST=monitor.seal.purdue.wtf" \
+--env "LETSENCRYPT_EMAIL=santiagotorres@purdue.edu" \
+--env "VIRTUAL_HOST=monitor.seal.purdue.wtf" \
+--env "VIRTUAL_PORT=8000" \
+-v monitor:/monitor \
+--name monitor-https \
+--rm \
+--expose 443 \
+hjjang501/purdue-monitor-page -interval=60
+
+[Install]
+WantedBy=multi-user.target

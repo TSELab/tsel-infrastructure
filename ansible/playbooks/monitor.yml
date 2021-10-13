@@ -1,0 +1,6 @@
+---
+- name: Start Purdue Rekor monitor along with web page
+  hosts: seal.purdue.wtf
+  become: true
+  roles:
+    - rekor-monitor
