@@ -1,0 +1,27 @@
+[unit]
+Description=Purdue Monitor gRPC service
+After=docker.service
+Requires=docker.service
+After=monitor-mirror.service
+Requires=monitor-mirror.service
+
+StartLimitIntervalSec=300
+StartLimitBurst=5
+
+[Service]
+Restart=on-failure
+RestartSec=2
+
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker stop monitor-grpc
+ExecStart=/usr/bin/docker run \
+--name monitor-grpc \
+--rm \
+--volumes-from monitor-mirror:ro \
+--network=purdue-monitor \
+-e GRPC_PORT=9000 \
+--expose 9000 \
+sigstoremonitor/monitor-grpc
+
+[Install]
+WantedBy=multi-user.target

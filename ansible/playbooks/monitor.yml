@@ -3,4 +3,4 @@
   hosts: seal.purdue.wtf
   become: true
   roles:
-    - rekor-monitor
+    - purdue-rekor-monitor

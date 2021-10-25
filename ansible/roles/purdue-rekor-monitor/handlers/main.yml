@@ -1,0 +1,21 @@
+---
+- name: Restart monitor mirror
+  systemd:
+    name: monitor-mirror.service
+    enabled: true
+    state: restarted
+    daemon-reload: true
+
+- name: Restart monitor grpc
+  systemd:
+    name: monitor-grpc.service
+    enabled: true
+    state: restarted
+    daemon-reload: true
+
+- name: Restart monitor page
+  systemd:
+    name: monitor-page.service
+    enabled: true
+    state: restarted
+    daemon-reload: true

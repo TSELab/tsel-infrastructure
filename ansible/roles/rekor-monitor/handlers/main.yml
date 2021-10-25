@@ -1,7 +1,0 @@
----
-- name: Restart monitor service
-  systemd:
-      name: purdue-monitor.service
-      enabled: true
-      state: restarted
-      daemon-reload: true

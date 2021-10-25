@@ -3,6 +3,8 @@ Description=Public monitor interface over HTTPS
 After=docker.service
 Requires=docker.service
 Requires=acme-companion.service
+After=monitor-grpc.service
+Requires=monitor-grpc.service
 
 StartLimitIntervalSec=300
 StartLimitBurst=5
@@ -12,17 +14,20 @@ Restart=on-failure
 RestartSec=2
 
 TimeoutStartSec=0
-ExecStartPre=-/usr/bin/docker stop monitor-https
+ExecStartPre=-/usr/bin/docker stop monitor-page
 ExecStart=/usr/bin/docker run \
 --env "LETSENCRYPT_HOST=monitor.seal.purdue.wtf" \
 --env "LETSENCRYPT_EMAIL=santiagotorres@purdue.edu" \
 --env "VIRTUAL_HOST=monitor.seal.purdue.wtf" \
 --env "VIRTUAL_PORT=8000" \
--v monitor:/monitor \
---name monitor-https \
+--env "GRPC_PORT=9000" \
+--env "SERVER_PORT=8000" \
+--env "GRPC_CONTAINER=monitor-grpc" \
+--network=purdue-monitor \
+--name monitor-page \
 --rm \
 --expose 443 \
-hjjang501/purdue-monitor-page -interval=60
+sigstoremonitor/monitor-page
 
 [Install]
 WantedBy=multi-user.target

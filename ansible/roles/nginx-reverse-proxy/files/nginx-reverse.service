@@ -6,6 +6,7 @@ Requires=docker.service
 [Service]
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker stop nginx-proxy
+ExecStartPre=-/usr/bin/docker network create purdue-monitor
 ExecStart=/usr/bin/docker run \
 --rm \
 --name nginx-proxy \
@@ -16,6 +17,7 @@ ExecStart=/usr/bin/docker run \
 -v html:/usr/share/nginx/html \
 -v /var/run/docker.sock:/tmp/docker.sock:ro \
 --label com.github.nginx-proxy.acme_companion.nginx_proxy \
+--network=purdue-monitor \
 nginxproxy/nginx-proxy
 
 [Install]

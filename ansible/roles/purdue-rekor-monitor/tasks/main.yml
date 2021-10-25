@@ -1,0 +1,33 @@
+---
+- name: Make sure required services are running
+  systemd:
+    state: started
+    name: "{{ item }}"
+  with_items:
+    - docker
+    - nginx-reverse
+    - acme-companion
+
+- name: Copy monitor service files
+  copy:
+    src: "{{ item.service }}"
+    dest: /etc/systemd/system
+    owner: core
+    mode: 0644
+  notify:
+    - "{{ item.handler }}"
+  with_items:
+    - { service: 'monitor-mirror.service', handler: 'Restart monitor mirror' }
+    - { service: 'monitor-grpc.service', handler: 'Restart monitor grpc' }
+    - { service: 'monitor-page.service', handler: 'Restart monitor page' }
+
+- name: Start monitor service
+  systemd:
+    name: "{{ item }}"
+    enabled: true
+    state: started
+    daemon-reload: true
+  with_items:
+    - monitor-mirror.service
+    - monitor-grpc.service
+    - monitor-page.service
