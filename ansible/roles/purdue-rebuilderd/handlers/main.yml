@@ -1,0 +1,7 @@
+---
+- name: Restart rebuilderd
+  systemd:
+    name: rebuilderd.service
+    enabled: true
+    state: restarted
+    daemon-reload: true

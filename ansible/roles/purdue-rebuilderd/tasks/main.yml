@@ -1,0 +1,42 @@
+---
+- name: Make sure required services are running
+  systemd:
+    state: started
+    name: "{{ item }}"
+  with_items:
+    - docker
+    - nginx-reverse
+    - acme-companion
+
+- name: Copy rebuilderd service files
+  copy:
+    src: "{{ item.service }}"
+    dest: /etc/systemd/system/{{ item.service }}
+    owner: core
+    mode: 0644
+  notify: "{{ item.notify }}"
+  with_items:
+    - { service: 'rebuilderd.service', notify: ['Restart rebuilderd'] }
+    - { service: 'rebuilderd-sync@.service', notify: [] }
+    - { service: 'rebuilderd-sync@.timer', notify: [] }
+
+- name: Copy rebuilderd configs
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: core
+    mode: 0644
+  notify: "{{ item.notify }}"
+  with_items:
+    - { src: 'rebuilderd.conf', dest: '/etc/rebuilderd.conf', notify: ['Restart rebuilderd'] }
+    - { src: 'rebuilderd-sync.conf', dest: '/etc/rebuilderd-sync.conf', notify: [] }
+
+- name: Start rebuilderd
+  systemd:
+    name: "{{ item }}"
+    enabled: true
+    state: started
+    daemon-reload: true
+  with_items:
+    - rebuilderd.service
+    - rebuilderd-sync@debian-main.timer

@@ -1,0 +1,6 @@
+---
+- name: Start Purdue rebuilderd daemon
+  hosts: seal.purdue.wtf
+  become: true
+  roles:
+    - purdue-rebuilderd

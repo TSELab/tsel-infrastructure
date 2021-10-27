@@ -1,0 +1,16 @@
+[Unit]
+Description=rebuilderctl sync: periodically import packages
+After=docker.service
+Requires=docker.service
+
+[Service]
+ExecStart=/usr/bin/docker run \
+--rm \
+--name rebuilderd-sync-%i \
+--network=purdue-monitor \
+-v /etc/rebuilderd-sync.conf:/etc/rebuilderd-sync.conf:ro \
+ghcr.io/kpcyrd/rebuilderd \
+rebuildctl -H http://rebuilderd/ pkgs sync-profile %i
+
+[Install]
+WantedBy=multi-user.target
