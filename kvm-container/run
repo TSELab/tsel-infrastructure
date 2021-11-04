@@ -1,0 +1,2 @@
+#!/bin bash
+docker run --name virtualized_worker -it --device=/dev/kvm:/dev/kvm:rwm --mount type=volume,source=vmvolume0,destination=/vm/ -p 10022:10022 --publish 5800 --publish 5900 virtualized_worker
