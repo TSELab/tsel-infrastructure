@@ -54,7 +54,7 @@ mkdir -p /vm/mytpm0
 swtpm socket --daemon --tpm2 --tpmstate dir=/vm/mytpm0 --ctrl type=unixio,path=/vm/mytpm0/swtpm-sock --log level=20
 ```
 
-Add following flags to `qemu-system-x86_64` command
+Add following flags to `qemu-system-x86_64` command to attach the TPM to the VM being created
 
 ```
 -chardev socket,id=chrtpm,path=/vm/mytpm0/swtpm-sock \
@@ -69,7 +69,7 @@ Reference: https://en.opensuse.org/Software_TPM_Emulator_For_QEMU
 
 You can set up ssh server inside the VM
 
-Once you are able to use VNC client to get inside the VM, install `openssh` package:
+Once you are able to use [VNC client](#connecting-the-display) to get inside the VM, install `openssh` package:
 
 ```s
 pacman -Syu
