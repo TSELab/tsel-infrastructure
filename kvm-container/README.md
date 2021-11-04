@@ -47,9 +47,9 @@ RUN pacman -S --noconfirm swtpm
 
 ### `entrypoint.sh`
 
-First create a virtual TPM
+First create a virtual TPM by adding the following lines
 
-```bash
+```s
 mkdir -p /vm/mytpm0
 swtpm socket --daemon --tpm2 --tpmstate dir=/vm/mytpm0 --ctrl type=unixio,path=/vm/mytpm0/swtpm-sock --log level=20
 ```
@@ -69,15 +69,17 @@ Reference: https://en.opensuse.org/Software_TPM_Emulator_For_QEMU
 
 You can set up ssh server inside the VM
 
-Once you are able to use VNC client to get inside the VM, install openssh package:
+Once you are able to use VNC client to get inside the VM, install `openssh` package:
 
-```bash
+```s
 pacman -Syu
 pacman -S openssh
 ```
 
+Once that is installed on the VM, let's go back to the local files.
+
 Make sure you have setup port forwarding between a port on the container and the ssh 
-port 22 of the VM in the `qemu-system-x86_64` command flags in `entrypoint.sh`
+port 22 of the VM by adding the following flags to `qemu-system-x86_64` command in `entrypoint.sh`
 
 ```
 -device e1000,netdev=net0 \
@@ -89,15 +91,15 @@ Reference: https://wiki.qemu.org/Documentation/Networking#How_to_get_SSH_access_
 Make sure you publish the container's port that is used in the previous step by adding 
 options to `docker run` command in `run`
 
-```
+```s
 docker run ... -p 10022:10022 ...
 ```
 
-In this case, since container's port 10022 is mapped to VM's port 22 and container's port 
-10022 is further mapped to host's port 10022
+In this case, since container's port `10022` is mapped to VM's port `22` and container's port 
+`10022` is further mapped to host's port `10022`
 
 Finally, try
 
-```bash
+```s
 ssh usernameinvm@hostaddr -p 10022
 ```
