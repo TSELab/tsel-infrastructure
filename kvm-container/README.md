@@ -7,7 +7,7 @@ kvm, and an arch base image.
 
 Before running "run", you need to create a volume for your machine (this helps with persistence).
 
-```bash
+```s
 docker volume create vmvolume0
 ```
 
@@ -15,7 +15,7 @@ This volume is where a qcow/raw vm image will be stored.
 
 Now, you should be able to run everything by building and running the container.
 
-```
+```s
 docker build -t virtualized_worker .
 . run
 ```
