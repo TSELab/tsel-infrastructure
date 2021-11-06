@@ -11,6 +11,7 @@ ExecStart=/usr/bin/docker run \
 --name rebuilderd \
 -v rebuilderd:/data \
 --network=purdue-monitor \
+-v /etc/rebuilderd.conf:/etc/rebuilderd.conf:ro \
 ghcr.io/kpcyrd/rebuilderd
 
 [Install]

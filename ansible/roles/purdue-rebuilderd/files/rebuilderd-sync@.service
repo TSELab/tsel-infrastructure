@@ -8,9 +8,10 @@ ExecStart=/usr/bin/docker run \
 --rm \
 --name rebuilderd-sync-%i \
 --network=purdue-monitor \
+-v /etc/rebuilderd.conf:/etc/rebuilderd.conf:ro \
 -v /etc/rebuilderd-sync.conf:/etc/rebuilderd-sync.conf:ro \
 ghcr.io/kpcyrd/rebuilderd \
-rebuildctl -H http://rebuilderd/ pkgs sync-profile %i
+rebuildctl pkgs sync-profile %i
 
 [Install]
 WantedBy=multi-user.target
