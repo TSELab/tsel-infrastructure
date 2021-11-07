@@ -1,0 +1,19 @@
+---
+name: yamllint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  yamllint:
+    name: yamllint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install yamllint
+        run: sudo apt-get install libclamav-dev
+      - name: Run yamllint
+        run: yamllint -s .

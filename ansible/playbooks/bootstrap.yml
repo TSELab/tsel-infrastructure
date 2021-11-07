@@ -1,12 +1,12 @@
 ---
 - name: Ansible CoreOS Bootstrap - install PyPy
   hosts: coreos
-  gather_facts: False
+  gather_facts: false
   roles:
     - ansible-coreos-bootstrap
 
 - name: Add user accounts to seal.purdue.wtf
   hosts: seal.purdue.wtf
-  become: True
+  become: true
   roles:
     - user-creation

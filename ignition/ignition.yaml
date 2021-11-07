@@ -1,3 +1,4 @@
+---
 passwd:
   users:
     - name: core
