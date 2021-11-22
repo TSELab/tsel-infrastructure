@@ -1,0 +1,18 @@
+---
+rebuilderd_workers:
+  - rebuilderd-worker-debian@0
+  - rebuilderd-worker-debian@1
+  - rebuilderd-worker-debian@2
+  - rebuilderd-worker-debian@3
+  - rebuilderd-worker-debian@4
+  - rebuilderd-worker-debian@5
+  - rebuilderd-worker-debian@6
+  - rebuilderd-worker-debian@7
+  - rebuilderd-worker-debian@8
+  - rebuilderd-worker-debian@9
+  - rebuilderd-worker-debian@10
+  - rebuilderd-worker-debian@11
+  - rebuilderd-worker-debian@12
+  - rebuilderd-worker-debian@13
+  - rebuilderd-worker-debian@14
+  - rebuilderd-worker-debian@15

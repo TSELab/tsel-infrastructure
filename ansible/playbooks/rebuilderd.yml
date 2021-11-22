@@ -1,6 +1,16 @@
 ---
 - name: Start Purdue rebuilderd daemon
-  hosts: seal.purdue.wtf
+  hosts:
+    - seal.purdue.wtf
   become: true
+  tags: [rebuilderd]
   roles:
     - purdue-rebuilderd
+
+- name: Setup Purdue rebuilderd workers
+  hosts:
+    - seal.purdue.wtf
+  become: true
+  tags: [rebuilderd-worker]
+  roles:
+    - purdue-rebuilderd-worker
