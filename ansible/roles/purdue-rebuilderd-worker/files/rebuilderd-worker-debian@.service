@@ -1,0 +1,21 @@
+[Unit]
+Description=rebuilderd-worker-debian: rebuild packages
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker stop rebuilderd-worker-debian-%i
+ExecStart=/usr/bin/docker run \
+--rm \
+--init \
+--name rebuilderd-worker-debian-%i \
+--cap-add SYS_ADMIN \
+--network=purdue-monitor \
+-v /etc/rebuilderd.conf:/etc/rebuilderd.conf:ro \
+-v /etc/rebuilderd-worker.conf:/etc/rebuilderd-worker.conf:ro \
+ghcr.io/kpcyrd/rebuilderd/worker-debian \
+connect
+
+[Install]
+WantedBy=multi-user.target

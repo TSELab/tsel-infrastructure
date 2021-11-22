@@ -1,0 +1,18 @@
+[Unit]
+Description=rebuilderd daemon
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker stop rebuilderd
+ExecStart=/usr/bin/docker run \
+--rm \
+--name rebuilderd \
+-v rebuilderd:/data \
+--network=purdue-monitor \
+-v /etc/rebuilderd.conf:/etc/rebuilderd.conf:ro \
+ghcr.io/kpcyrd/rebuilderd
+
+[Install]
+WantedBy=multi-user.target

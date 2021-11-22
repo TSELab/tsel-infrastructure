@@ -1,0 +1,8 @@
+---
+- name: Restart rebuilderd workers
+  systemd:
+    name: "{{ item }}"
+    enabled: true
+    state: restarted
+    daemon-reload: true
+  with_items: "{{ rebuilderd_workers }}"
