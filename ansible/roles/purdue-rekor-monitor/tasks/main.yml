@@ -14,12 +14,13 @@
     dest: /etc/systemd/system
     owner: core
     mode: 0644
+  register: monitor_services
   notify:
-    - "{{ item.handler }}"
+    - Restart monitor services
   with_items:
-    - { service: 'monitor-mirror.service', handler: 'Restart monitor mirror' }
-    - { service: 'monitor-grpc.service', handler: 'Restart monitor grpc' }
-    - { service: 'monitor-page.service', handler: 'Restart monitor page' }
+    - { service: 'monitor-mirror.service' }
+    - { service: 'monitor-grpc.service' }
+    - { service: 'monitor-page.service' }
 
 - name: Start monitor service
   systemd:

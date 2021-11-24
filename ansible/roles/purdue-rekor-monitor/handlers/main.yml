@@ -1,21 +1,8 @@
 ---
-- name: Restart monitor mirror
+- name: Restart monitor services
+  loop: "{{ monitor_services.results | selectattr('changed', 'equalto', true) | map(attribute='item') | map(attribute='service') | list }}"
   systemd:
-    name: monitor-mirror.service
-    enabled: true
-    state: restarted
-    daemon-reload: true
-
-- name: Restart monitor grpc
-  systemd:
-    name: monitor-grpc.service
-    enabled: true
-    state: restarted
-    daemon-reload: true
-
-- name: Restart monitor page
-  systemd:
-    name: monitor-page.service
+    name: "{{ item }}"
     enabled: true
     state: restarted
     daemon-reload: true
