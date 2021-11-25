@@ -1,0 +1,20 @@
+[Unit]
+Description=rebuilderd-worker-vm
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker stop rebuilderd-worker-vm-%i
+ExecStart=/usr/bin/docker run \
+--rm \
+--name rebuilderd-worker-vm-%i \
+--network=purdue-monitor \
+--device=/dev/kvm:/dev/kvm:rwm \
+--mount type=volume,source=vmrebuilderd,destination=/vm/ \
+--publish 5800 \
+--publish 5900 \
+rebuilderd-worker-vm
+
+[Install]
+WantedBy=multi-user.target
