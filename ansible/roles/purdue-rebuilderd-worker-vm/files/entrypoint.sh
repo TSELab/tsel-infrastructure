@@ -15,7 +15,7 @@ echo -e "$(ip -j a | jq -r .[1].addr_info[0].local)\tself" >> hosts
 
 virt-copy-in -a $IMAGE_PATH hosts /etc
 
-qemu-system-x86_64 -m $RAM_SIZE \
+nohup qemu-system-x86_64 -m $RAM_SIZE \
     -smp 8 \
     -enable-kvm \
     -k en-us \
@@ -23,6 +23,7 @@ qemu-system-x86_64 -m $RAM_SIZE \
     -hda $IMAGE_PATH \
     -nographic \
     -netdev user,id=net0 \
-    -device e1000,netdev=net0 &
+    -device e1000,netdev=net0 \
+    &
 
 socat -s -d -d TCP-LISTEN:8484,fork,reuseaddr TCP:rebuilderd:8484
