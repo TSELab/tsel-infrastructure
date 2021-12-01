@@ -11,7 +11,7 @@ ExecStart=/usr/bin/docker run \
 --name rebuilderd-worker-vm-%i \
 --network=purdue-monitor \
 --device=/dev/kvm:/dev/kvm:rwm \
---mount type=volume,source=vmrebuilderd,destination=/vm/ \
+--mount type=volume,source=rebuilderd-worker-vm-%i,destination=/vm/ \
 --publish 5800 \
 --publish 5900 \
 rebuilderd-worker-vm
