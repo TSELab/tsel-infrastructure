@@ -14,3 +14,11 @@
   tags: [rebuilderd-worker]
   roles:
     - purdue-rebuilderd-worker
+
+- name: Setup Purdue rebuilderd frontend
+  hosts:
+    - seal.purdue.wtf
+  become: true
+  tags: [rebuilderd-frontend]
+  roles:
+    - purdue-rebuilderd-frontend

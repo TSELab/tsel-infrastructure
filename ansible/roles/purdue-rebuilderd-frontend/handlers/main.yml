@@ -1,0 +1,7 @@
+---
+- name: Restart rebuilderd-frontend service
+  systemd:
+    name: rebuilderd-frontend
+    enabled: true
+    state: restarted
+    daemon-reload: true
