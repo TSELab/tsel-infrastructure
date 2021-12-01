@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Reproducible Debian - reproducible.seal.purdue.wtf</title>
+        <style>
+        body {
+            font-family: sans-serif;
+        }
+        h1 {
+            font-size: 24px;
+        }
+
+        #search-results {
+            margin: 20px 0;
+        }
+
+        pre {
+            margin: 0;
+        }
+
+        #search-results pre {
+            margin: 12px 0;
+        }
+
+        .status {
+            font-weight: bold;
+        }
+
+        .good {
+            color: green;
+        }
+
+        .bad {
+            color: red;
+        }
+
+        .unknown {
+            color: #957fff;
+        }
+
+        footer {
+            font-size: small;
+            margin: 30px 0;
+        }
+        </style>
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // package search
+            function spanWith(text) {
+                let s = document.createElement('span');
+                s.textContent = text;
+                return s;
+            }
+
+            function linkTo(href, text) {
+                let a = document.createElement('a');
+                a.href = href;
+                a.textContent = text;
+                return a;
+            }
+
+            function searchPkgs(query) {
+                let div = document.getElementById('search-results');
+                let url = '/api/v0/pkgs/list?' + new URLSearchParams({
+                    name: query,
+                    distro: 'debian',
+                });
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        // clear children
+                        div.innerHTML = '';
+
+                        data.map(pkg => {
+                            let build_id = pkg.build_id;
+                            let r = document.createElement('pre');
+
+                            r.appendChild(spanWith('['));
+                            let status = pkg['status'];
+                            let statusSpan = spanWith(status);
+                            statusSpan.className += ' status';
+                            if (status == 'GOOD') {
+                                statusSpan.className += ' good';
+                            } else if (status == 'BAD') {
+                                statusSpan.className += ' bad';
+                            } else {
+                                statusSpan.className += ' unknown';
+                            }
+                            r.appendChild(statusSpan);
+                            r.appendChild(spanWith(`] ${pkg['name']} ${pkg['version']}\t\t`));
+
+                            if (build_id) {
+                                r.appendChild(spanWith(' ['));
+                                r.appendChild(linkTo(`/api/v0/builds/${build_id}/log`, 'log'));
+                                r.appendChild(spanWith(']'));
+                            }
+
+                            if (pkg.has_attestation) {
+                                r.appendChild(spanWith(' ['));
+                                r.appendChild(linkTo(`/api/v0/builds/${build_id}/attestation`, 'attestation'));
+                                r.appendChild(spanWith(']'));
+                            }
+
+                            if (pkg.has_diffoscope) {
+                                r.appendChild(spanWith(' ['));
+                                r.appendChild(linkTo(`/api/v0/builds/${build_id}/diffoscope`, 'diffoscope'));
+                                r.appendChild(spanWith(']'));
+                            }
+
+                            div.appendChild(r);
+                        });
+                    });
+            }
+
+            if (location.hash) {
+                searchPkgs(location.hash.substr(1));
+            }
+
+            document.getElementById('search').addEventListener('submit', function(e) {
+                e.preventDefault();
+                let query = document.getElementById('search-query').value;
+                location.href = `#${query}`;
+                searchPkgs(query);
+            });
+
+            // display stats
+            function updateStats(data) {
+                let div = document.getElementById('stats');
+                // clear children
+                div.innerHTML = '';
+                // add rows
+                data.map(row => {
+                    let r = document.createElement('pre');
+                    let key = row[0] + ': ';
+                    r.textContent = key.padEnd(20) + row[1];
+                    div.appendChild(r);
+                });
+            }
+
+            function fetchStats() {
+                fetch('/api/v0/dashboard')
+                    .then(response => response.json())
+                    .then(data => {
+                        let div = document.getElementById('stats');
+                        let main = data['suites']['main'];
+
+                        let good = main['good'];
+                        let bad = main['bad'];
+                        let unknown = main['unknown'];
+
+                        updateStats([
+                            ['good', good],
+                            ['bad', bad],
+                            ['unknown', unknown],
+                            ['build progress', (100 / (good + unknown + bad) * (good + bad)).toFixed(2) + '%'],
+                            ['repro', (100 / (good + bad) * good).toFixed(2) + '%'],
+                        ]);
+                    });
+            }
+
+            setInterval(fetchStats, 60 * 1000);
+            fetchStats();
+        });
+        </script>
+    </head>
+    <body>
+        <h1>Reproducible Debian - reproducible.seal.purdue.wtf</h1>
+
+        <div id="stats">Loading stats...</div>
+
+        <div>
+            <h3>Search</h3>
+            <form id="search">
+                <input type="text" id="search-query" placeholder="sniffglue">
+                <input type="submit" value="Search">
+            </form>
+        </div>
+        <div id="search-results">
+        </div>
+
+        <footer>
+            pew pew, <a href="https://rebuilderd.com/">rebuilderd</a>!
+            rebuilder-backend used is <a href="https://github.com/fepitre/debrebuild">debrebuild.py</a> ♥️
+        </footer>
+    </body>
+</html>

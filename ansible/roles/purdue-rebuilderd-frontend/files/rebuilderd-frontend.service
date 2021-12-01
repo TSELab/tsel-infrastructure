@@ -1,0 +1,28 @@
+[Unit]
+Description=Public rebuilderd frontend
+After=docker.service
+Requires=docker.service
+Requires=acme-companion.service
+
+StartLimitIntervalSec=300
+StartLimitBurst=5
+
+[Service]
+Restart=on-failure
+RestartSec=2
+
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker stop rebuilderd-frontend
+ExecStart=/usr/bin/docker run \
+--env "LETSENCRYPT_HOST=reproducible.seal.purdue.wtf" \
+--env "LETSENCRYPT_EMAIL=santiagotorres@purdue.edu" \
+--env "VIRTUAL_HOST=reproducible.seal.purdue.wtf" \
+--network=purdue-monitor \
+--name rebuilderd-frontend \
+-v /opt/rebuilderd-frontend/nginx.conf:/etc/nginx/conf.d/default.conf:ro \
+-v /opt/rebuilderd-frontend/www/:/var/www/html \
+--rm \
+nginx:alpine
+
+[Install]
+WantedBy=multi-user.target

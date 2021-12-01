@@ -1,0 +1,38 @@
+---
+- name: Make sure required services are running
+  systemd:
+    state: started
+    name: "{{ item }}"
+  with_items:
+    - docker
+    - nginx-reverse
+    - acme-companion
+
+- name: Create directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  with_items:
+    - /opt/rebuilderd-frontend
+    - /opt/rebuilderd-frontend/www
+
+- name: Copy rebuilderd-frontend service file
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: core
+    mode: 0644
+  notify:
+    - Restart rebuilderd-frontend service
+  with_items:
+  - { src: "nginx.conf", dest: "/opt/rebuilderd-frontend" }
+  - { src: "rebuilderd-frontend.service", dest: "/etc/systemd/system" }
+  - { src: "index.html", dest: "/opt/rebuilderd-frontend/www" }
+
+- name: Start rebuilderd-frontend service
+  systemd:
+    name: rebuilderd-frontend.service
+    enabled: true
+    state: started
+    daemon-reload: true
