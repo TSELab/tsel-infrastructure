@@ -2,7 +2,7 @@
 set -e
 RAM_SIZE=2G
 IMAGE_PATH=/vm/worker.img
-IMAGE_SRC="https://mirror.pkgbuild.com/images/latest/Arch-Linux-x86_64-basic-20211115.39179.qcow2"
+IMAGE_SRC="https://workervm.seal.purdue.wtf/worker.img"
 
 # Start downloading worker VM image if it doesn't exist
 if [ ! -f "$IMAGE_PATH" ]
