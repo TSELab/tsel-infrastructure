@@ -4,7 +4,7 @@ After=docker.service
 Requires=docker.service
 
 [Service]
-TimeoutStartSec=0
+TimeoutStartSec=20
 ExecStartPre=-/usr/bin/docker stop rebuilderd-worker-vm-%i
 ExecStart=/usr/bin/docker run \
 --rm \

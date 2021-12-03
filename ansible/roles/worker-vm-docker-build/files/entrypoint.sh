@@ -1,4 +1,4 @@
-!/bin/sh
+#!/bin/sh
 set -e
 RAM_SIZE=2G
 IMAGE_PATH=/vm/worker.img

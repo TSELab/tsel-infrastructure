@@ -1,0 +1,16 @@
+---
+- name: Build virtualized worker Docker image
+  hosts:
+    - seal.purdue.wtf
+  become: true
+  tags: [rebuilderd-worker-vm-docker]
+  roles:
+    - worker-vm-docker-build
+
+- name: Start Purdue rebuilderd virtualized workers
+  hosts:
+    - seal.purdue.wtf
+  become: true
+  tags: [rebuilderd-worker-vm]
+  roles:
+    - purdue-rebuilderd-worker-vm

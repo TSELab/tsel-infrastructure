@@ -5,10 +5,3 @@
     enabled: true
     state: restarted
     daemon-reload: true
-
-- name: Build rebuilderd worker vm docker image
-  docker_image:
-    build:
-      path: /home/core/rebuilderd-worker-vm
-    name: rebuilderd-woker-vm
-    source: build
