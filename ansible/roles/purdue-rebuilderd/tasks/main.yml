@@ -40,3 +40,4 @@
   with_items:
     - rebuilderd.service
     - rebuilderd-sync@debian-main.timer
+    - rebuilderd-sync@archlinux-core.timer
