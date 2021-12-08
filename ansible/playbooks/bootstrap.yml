@@ -10,3 +10,9 @@
   become: True
   roles:
     - user-creation
+
+- name: Add user accounts to seal.purdue.wtf
+  hosts: tsel.purdue.wtf
+  become: True
+  roles:
+    - user-creation
