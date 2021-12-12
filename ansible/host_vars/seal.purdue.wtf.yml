@@ -16,3 +16,19 @@ rebuilderd_workers:
   - rebuilderd-worker-debian@13
   - rebuilderd-worker-debian@14
   - rebuilderd-worker-debian@15
+  - rebuilderd-worker-debian@16
+  - rebuilderd-worker-debian@17
+  - rebuilderd-worker-debian@18
+  - rebuilderd-worker-debian@19
+  - rebuilderd-worker-debian@20
+  - rebuilderd-worker-debian@21
+  - rebuilderd-worker-debian@22
+  - rebuilderd-worker-debian@23
+  - rebuilderd-worker-debian@24
+  - rebuilderd-worker-debian@25
+  - rebuilderd-worker-debian@26
+  - rebuilderd-worker-debian@27
+  - rebuilderd-worker-debian@28
+  - rebuilderd-worker-debian@29
+  - rebuilderd-worker-debian@30
+  - rebuilderd-worker-debian@31
