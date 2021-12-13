@@ -5,14 +5,8 @@
   roles:
     - ansible-coreos-bootstrap
 
-- name: Add user accounts to seal.purdue.wtf
-  hosts: seal.purdue.wtf
-  become: True
-  roles:
-    - user-creation
-
-- name: Add user accounts to seal.purdue.wtf
-  hosts: tsel.purdue.wtf
+- name: Add user accounts 
+  hosts: tsel
   become: True
   roles:
     - user-creation
