@@ -4,3 +4,7 @@ users:
     name: "Eman"
     groups: [docker]
     ssh_key: eman.pub
+  alan:
+    name: "Alan"
+    groups: [docker]
+    ssh_key: alan.pub
