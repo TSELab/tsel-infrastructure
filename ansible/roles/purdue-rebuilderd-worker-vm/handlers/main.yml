@@ -1,0 +1,7 @@
+---
+- name: Restart rebuilderd workers
+  systemd:
+    name: rebuilderd-worker-vm@0
+    enabled: true
+    state: restarted
+    daemon-reload: true

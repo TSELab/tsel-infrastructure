@@ -1,0 +1,12 @@
+---
+- name: Remove rebuilderd worker vm docker image
+  docker_image:
+    state: absent
+    name: rebuilderd-worker-vm
+
+- name: Build rebuilderd worker vm docker image
+  docker_image:
+    build:
+      path: /home/core/rebuilderd-worker-vm
+    name: rebuilderd-worker-vm
+    source: build
