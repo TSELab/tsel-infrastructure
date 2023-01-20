@@ -8,3 +8,7 @@ users:
     name: "Alan"
     groups: [docker]
     ssh_key: alan.pub
+  chinenye:
+    name: "Chinenye"
+    groups: [docker]
+    ssh_key: chinenye.pub
