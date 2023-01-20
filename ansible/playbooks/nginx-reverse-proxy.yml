@@ -1,6 +1,6 @@
 ---
 - name: Start nginx reverse proxy along with letsencrypt companion
-  hosts: seal.purdue.wtf
+  hosts: seal.purdue.wtf, tsel.purdue.wtf
   become: true
   roles:
     - nginx-reverse-proxy
