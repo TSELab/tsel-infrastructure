@@ -12,3 +12,7 @@ users:
     name: "Chinenye"
     groups: [docker]
     ssh_key: chinenye.pub
+  abhi:
+    name: "Abhishek"
+    groups: [docker]
+    ssh_key: abhi.pub
