@@ -16,3 +16,7 @@ users:
     name: "Abhishek"
     groups: [docker]
     ssh_key: abhi.pub
+  sahithi:
+    name: "Sahithi"
+    groups: [docker]
+    ssh_key: sahithi.pub
