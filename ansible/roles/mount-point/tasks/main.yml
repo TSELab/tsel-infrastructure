@@ -1,0 +1,7 @@
+- name: Mount point for sda1
+  mount:
+    path: /mnt
+    src: /dev/sda1
+    fstype: ext4
+    opts: defaults
+    state: mounted
