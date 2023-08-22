@@ -15,4 +15,4 @@
   hosts: tsel
   become: True
   roles:
-    - mount-points
+    - mount-point

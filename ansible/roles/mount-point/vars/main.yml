@@ -1,3 +1,3 @@
 mount_disks:
-  - { uuid: "feb1676d-685e-4276-8716-8aafb77b09a5", mount_point: "/mnt/sda" , fstype: "ext4"}
-  - { uuid: "cef90ff5-9d19-40cd-a1b6-8d9893ce1838", mount_point: "/mnt/sdc" , fstype: "btrfs"}
+  - { uuid: "UUID=feb1676d-685e-4276-8716-8aafb77b09a5", mount_point: "/mnt/barbie" , fstype: "ext4"}
+  - { uuid: "UUID=cef90ff5-9d19-40cd-a1b6-8d9893ce1838", mount_point: "/mnt/oppenheimer" , fstype: "btrfs"}
