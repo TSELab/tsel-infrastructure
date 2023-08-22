@@ -1,0 +1,25 @@
+- name: Create parent folder in /
+  file:
+    path: /mnt
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Create mount points
+  file:
+    path: "{{ item.mount_point }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  loop: "{{ mount_disks }}"
+
+- name: Mount disks using UUIDs
+  mount:
+    path: "{{ item.mount_point }}"
+    src: "{{ item.uuid }}"
+    fstype: "{{ item.fstype }}"
+    opts: defaults
+    state: mounted
+  loop: "{{ mount_disks }}"

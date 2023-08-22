@@ -10,3 +10,9 @@
   become: True
   roles:
     - user-creation
+
+- name: Configure Mount Points
+  hosts: tsel
+  become: True
+  roles:
+    - mount-points
