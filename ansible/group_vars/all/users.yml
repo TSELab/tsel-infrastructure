@@ -20,3 +20,7 @@ users:
     name: "Sahithi"
     groups: [docker]
     ssh_key: sahithi.pub
+  jonathan:
+    name: "Jonathan"
+    groups: [docker]
+    ssh_key: jonathan.pub
