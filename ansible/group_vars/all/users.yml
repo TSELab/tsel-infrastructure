@@ -26,5 +26,5 @@ users:
     ssh_key: jonathan.pub
   soham:
     name: "Soham"
-    groups: [docker]
+    groups: [docker, wheel]
     ssh_key: soham.pub
