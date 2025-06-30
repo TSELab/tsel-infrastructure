@@ -24,3 +24,7 @@ users:
     name: "Jonathan"
     groups: [docker]
     ssh_key: jonathan.pub
+  damian: 
+    name: "Damian"
+    groups: [docker]
+    ssh_key: damian.pub
