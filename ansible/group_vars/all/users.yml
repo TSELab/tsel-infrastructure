@@ -4,10 +4,6 @@ users:
     name: "Eman"
     groups: [docker]
     ssh_key: eman.pub
-  alan:
-    name: "Alan"
-    groups: [docker]
-    ssh_key: alan.pub
   chinenye:
     name: "Chinenye"
     groups: [docker]
@@ -16,10 +12,6 @@ users:
     name: "Abhishek"
     groups: [docker]
     ssh_key: abhi.pub
-  sahithi:
-    name: "Sahithi"
-    groups: [docker]
-    ssh_key: sahithi.pub
   jonathan:
     name: "Jonathan"
     groups: [docker]
