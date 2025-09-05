@@ -20,3 +20,8 @@ users:
     name: "Damian"
     groups: [docker]
     ssh_key: damian.pub
+  ravleen: 
+    name: "Ravleen"
+    groups: [docker]
+    ssh_key: ravleen.pub
+
