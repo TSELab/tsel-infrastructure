@@ -24,4 +24,7 @@ users:
     name: "Ravleen"
     groups: [docker]
     ssh_key: ravleen.pub
-
+  william:
+    name: "William"
+    groups: [docker]
+    ssh_key: boulton.pub
