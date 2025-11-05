@@ -1,0 +1,27 @@
+---
+- name: Make sure required services are running
+  systemd:
+    state: started
+    name: "{{ item }}"
+  with_items:
+    - docker
+
+- name: Create directory for Docker build
+  file:
+    path: /home/core/rebuilderd-worker-vm
+    state: directory
+    mode: '0755'
+
+- name: Copy Dockerfile and entrypoint script
+  copy:
+    src: "{{ item }}"
+    dest: /home/core/rebuilderd-worker-vm/{{ item }}
+    owner: core
+    mode: 0755
+  notify:
+    - Remove rebuilderd worker vm docker image
+    - Build rebuilderd worker vm docker image
+  with_items:
+    - 'Dockerfile'
+    - 'entrypoint.sh'
+    - 'rebuilderd-worker.conf'
