@@ -32,3 +32,7 @@ users:
     name: "Zeren"
     groups: [docker]
     ssh_key: zeren.pub
+  alex:
+    name: "Alex"
+    groups: [docker]
+    ssh_key: alex.pub
