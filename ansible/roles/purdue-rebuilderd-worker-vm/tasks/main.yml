@@ -1,0 +1,24 @@
+---
+- name: Make sure required services are running
+  systemd:
+    state: started
+    name: "{{ item }}"
+  with_items:
+    - docker
+
+- name: Copy rebuilderd-worker-vm service files
+  copy:
+    src: "{{ item.service }}"
+    dest: /etc/systemd/system/{{ item.service }}
+    owner: core
+    mode: 0644
+  notify: "{{ item.notify }}"
+  with_items:
+    - { service: 'rebuilderd-worker-vm@.service', notify: ['Restart rebuilderd workers'] }
+
+- name: Start rebuilderd workers
+  systemd:
+    name: rebuilderd-worker-vm@0
+    enabled: true
+    state: started
+    daemon-reload: true
